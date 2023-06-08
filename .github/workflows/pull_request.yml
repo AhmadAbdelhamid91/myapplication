@@ -33,28 +33,18 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@ec02537da5712d66d4d50a0f33b7eb52773b5ed1
-        with:
-          ruby-version: '3.1'
-
-      - name: Install dependencies
-        run: bundle install
-
-      - name: install fastlane
-        run: |
-          gem install bundler
-          bundle install
-          bundle exec fastlane install_plugins
-
       - name: Grant execution permission to gradlew
         run: chmod +x gradlew
 
-#      - name: run unit tests
-#        run: bundle exec fastlane run_unit_tests
-
       - name: Unit Test
         run: ./gradlew test
+
+      - name: Upload Test Reports
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: test-reports
+          path: '**/build/reports/tests/'
 
       - name: Check Test Results
         run: |
