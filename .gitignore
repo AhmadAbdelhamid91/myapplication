@@ -15,3 +15,6 @@
 local.properties
 /.idea/vcs.xml
 /.idea/git_toolbox_prj.xml
+/fastlane/README.md
+/fastlane/report.xml
+
