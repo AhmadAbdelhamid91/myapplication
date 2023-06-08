@@ -61,6 +61,3 @@ jobs:
             echo "Tests failed. The workflow will be marked as failed, and the pull request cannot be merged."
             exit 1
           fi
-
-      - name: Increase Version Number
-        run: fastlane run_increase_version_number
