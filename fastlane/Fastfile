@@ -18,7 +18,9 @@ default_platform(:android)
 platform :android do
   desc "Runs all the tests"
   lane :run_unit_tests do
-    gradle(task: "test")
+    gradle(
+    task: "test",
+    project_dir: './android')
   end
 
 end

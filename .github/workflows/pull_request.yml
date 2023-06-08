@@ -47,7 +47,7 @@ jobs:
           bundle install
           bundle exec fastlane install_plugins
 
-      - name: Build and run tests
+      - name: run unit tests
         run: bundle exec fastlane run_unit_tests
 
       - name: Check Test Results
