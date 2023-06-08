@@ -23,16 +23,6 @@ jobs:
           distribution: 'temurin'
           cache: 'gradle'
 
-      - name: Cache Gradle
-        uses: actions/cache@v3
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
-
       - name: Set up Ruby
         uses: ruby/setup-ruby@ec02537da5712d66d4d50a0f33b7eb52773b5ed1
         with:
@@ -48,7 +38,7 @@ jobs:
           bundle exec fastlane install_plugins
 
       - name: Grant execution permission to gradlew
-        run: chmod +x /home/runner/work/my-application/my-application/android/gradlew
+        run: chmod +x gradlew
 
       - name: run unit tests
         run: bundle exec fastlane run_unit_tests
