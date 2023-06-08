@@ -20,7 +20,7 @@ platform :android do
   lane :run_unit_tests do
     gradle(
     task: "test",
-    project_dir: './gradlew')
+    gradle_path: './gradlew')
   end
 
 end
