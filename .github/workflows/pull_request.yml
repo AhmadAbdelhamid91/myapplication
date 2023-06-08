@@ -39,12 +39,8 @@ jobs:
       - name: Unit Test
         run: ./gradlew test
 
-      - name: Upload Test Reports
-        if: ${{ always() }}
-        uses: actions/upload-artifact@v2
-        with:
-          name: test-reports
-          path: '**/build/reports/tests/'
+      - name: Android Test Report Action
+        uses: asadmansr/android-test-report-action@v1.2.0
 
       - name: Check Test Results
         run: |
