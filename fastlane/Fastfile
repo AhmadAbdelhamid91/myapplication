@@ -19,9 +19,7 @@ platform :android do
   desc "Runs all the tests"
   lane :run_unit_tests do
     gradle(
-    task: "test",
-    project_dir:'./myapplication',
-    gradle_path: 'myapplication/gradlew')
+    task: "test")
   end
 
 end
