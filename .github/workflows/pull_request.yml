@@ -50,8 +50,11 @@ jobs:
       - name: Grant execution permission to gradlew
         run: chmod +x gradlew
 
-      - name: run unit tests
-        run: bundle exec fastlane run_unit_tests
+#      - name: run unit tests
+#        run: bundle exec fastlane run_unit_tests
+
+      - name: Unit Test
+        run: ./gradlew testDebugUnitTest
 
       - name: Check Test Results
         run: |
