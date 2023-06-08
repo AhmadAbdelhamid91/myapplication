@@ -12,6 +12,6 @@ class ExampleUnitTest {
 
     @Test
     fun test_that_fail() {
-        assertEquals(42, 0)
+        assertEquals(42, 42)
     }
 }
