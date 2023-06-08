@@ -47,6 +47,9 @@ jobs:
           bundle install
           bundle exec fastlane install_plugins
 
+      - name: Grant execution permission to gradlew
+        run: chmod +x /home/runner/work/my-application/my-application/android/gradlew
+
       - name: run unit tests
         run: bundle exec fastlane run_unit_tests
 
