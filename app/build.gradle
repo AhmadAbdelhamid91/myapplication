@@ -49,6 +49,12 @@ android {
             useJUnitPlatform()
         }
     }
+    sourceSets {
+        main.java.srcDirs += 'src/main/java'
+        main.java.srcDirs += [file("$buildDir/generated/source/kapt/main")]
+        test.java.srcDirs += 'src/test/java'
+        androidTest.java.srcDirs += 'src/androidTest/java'
+    }
 }
 
 dependencies {
@@ -70,4 +76,9 @@ dependencies {
     androidTestImplementation 'androidx.compose.ui:ui-test-junit4'
     debugImplementation 'androidx.compose.ui:ui-tooling'
     debugImplementation 'androidx.compose.ui:ui-test-manifest'
+}
+ktlint {
+    android = true
+    ignoreFailures= false
+    disabledRules =["final-newline","no-wildcard-imports"]
 }

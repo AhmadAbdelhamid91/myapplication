@@ -18,3 +18,5 @@ local.properties
 /fastlane/README.md
 /fastlane/report.xml
 
+/.idea/codeStyles/codeStyleConfig.xml
+/.idea/codeStyles/Project.xml
