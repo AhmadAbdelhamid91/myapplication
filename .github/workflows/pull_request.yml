@@ -4,23 +4,40 @@ on:
   pull_request:
     branches:
       - master
-permissions: read-all
-
-env:
-  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
+
   lint:
+
     runs-on: ubuntu-latest
 
     steps:
-
       - name: Checkout current repository in runner
         uses: actions/checkout@v3
 
-      - name: Trigger Lint Workflow
-        run: |
-          gh workflow run lint.yml
+      - name: Setup JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: 'gradle'
+
+      - name: Cache Gradle
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Grant execution permission to gradlew
+        run: chmod +x gradlew
+
+      - name: check linting
+        run: ./gradlew ktlintCheck --continue
+
 
   tests:
     needs: lint
@@ -31,6 +48,37 @@ jobs:
       - name: Checkout current repository in runner
         uses: actions/checkout@v3
 
-      - name: Trigger Tests Workflow
+      - name: Setup JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: 'gradle'
+
+      - name: Cache Gradle
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Grant execution permission to gradlew
+        run: chmod +x gradlew
+
+      - name: Unit Test
+        run: ./gradlew test
+
+      - name: Android Test Report Action
+        uses: asadmansr/android-test-report-action@v1.2.0
+
+      - name: Check Test Results
         run: |
-          gh workflow run tests.yml
+          if [ ${{ job.status }} == 'success' ]; then
+            echo "All tests passed. The pull request can be merged."
+          else
+            echo "Tests failed. The workflow will be marked as failed, and the pull request cannot be merged."
+            exit 1
+          fi
