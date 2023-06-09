@@ -36,6 +36,3 @@ jobs:
 
       - name: check linting
         run: ./gradlew ktlintCheck --continue
-
-  outputs:
-    lint-successful: ${{ success() }}
