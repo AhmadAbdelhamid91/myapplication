@@ -1,10 +1,13 @@
-name: Lint
+name: Tests
 
 on:
-  workflow_dispatch:
+  workflow_run:
+    workflows: [ "Lint" ]
+    types:
+      - completed
 
 jobs:
-  lint:
+  tests:
     runs-on: ubuntu-latest
 
     steps:
@@ -31,5 +34,17 @@ jobs:
       - name: Grant execution permission to gradlew
         run: chmod +x gradlew
 
-      - name: Run linter
-        run: ./gradlew ktlintCheck --continue
+
+      - name: Run unit tests
+        run: ./gradlew test
+
+      - name: Android Test Report Action
+        uses: asadmansr/android-test-report-action@v1.2.0
+
+      - name: Check Test Results
+        run: |
+          if [ ${{ job.status }} == 'success' ]; then
+            echo "All tests passed. The pull request can be merged."
+          else
+            echo "Tests failed. The workflow will be marked as failed, and the pull request cannot be merged."
+            exit 1
