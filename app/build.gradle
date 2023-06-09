@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'org.jlleitschuh.gradle.ktlint'
 }
 
 android {
@@ -77,8 +78,15 @@ dependencies {
     debugImplementation 'androidx.compose.ui:ui-tooling'
     debugImplementation 'androidx.compose.ui:ui-test-manifest'
 }
+
+//tasks.getByPath("preBuild").dependsOn("ktlintFormat")
+
 ktlint {
     android = true
+    debug = true
     ignoreFailures= false
     disabledRules =["final-newline","no-wildcard-imports"]
+    outputToConsole = true
+    outputColorName = "RED"
+    enableExperimentalRules = true
 }

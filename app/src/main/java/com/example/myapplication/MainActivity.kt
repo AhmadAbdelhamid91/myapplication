@@ -15,7 +15,8 @@ import com.example.myapplication.ui.theme.MyApplicationTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
+
+        setContent { // aaaaaaaaa
             MyApplicationTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
