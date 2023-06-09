@@ -1,13 +1,17 @@
 name: Pull Request
 
 on:
-  pull_request:
-    branches:
-      - master
+  workflow_run:
+    workflows: [ "Lint" ]
+    types:
+      - completed
+#on:
+#  pull_request:
+#    branches:
+#      - master
 
 jobs:
-  lint:
-    uses: ./.github/workflows/lint.yml
+
   #  lint:
   #
   #    runs-on: ubuntu-latest
@@ -42,7 +46,7 @@ jobs:
 
 
   tests:
-    needs: lint
+#    needs: lint
     runs-on: ubuntu-latest
 
     steps:
