@@ -4,7 +4,7 @@ on:
   pull_request:
     branches:
       - master
-permissions: read-all|write-all
+permissions: read-all
 
 env:
   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
