@@ -1,0 +1,16 @@
+#!/bin/sh
+
+echo "Checking code formatting before commit..."
+
+# Inspect code using Detekt
+./gradlew app:ktlintCheck --daemon
+
+status=$?
+
+if [ "$status" = 0 ] ; then
+    echo "Code formatting found no problems."
+    exit 0
+else
+    echo 1>&2 "Code formatting found issues that must be addressed."
+    exit 1
+fi
