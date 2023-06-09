@@ -7,7 +7,7 @@ on:
 
 jobs:
   lint:
-    uses: ./.github/workflows/lint.yml
+    uses: /.github/workflows/lint.yml
   #  lint:
   #
   #    runs-on: ubuntu-latest
@@ -42,7 +42,7 @@ jobs:
 
 
   tests:
-    needs: [ lint ]
+    needs: lint
     runs-on: ubuntu-latest
 
     steps:
