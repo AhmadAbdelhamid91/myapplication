@@ -24,8 +24,10 @@ local.properties
 /.idea/misc.xml
 /.idea/inspectionProfiles/Project_Default.xml
 /.idea/detekt.xml
+
 /updload-keystore.jks
 /app/production/release
 /app/stage/release
 /keystore.properties
 /upload_keystore_base64.txt
+

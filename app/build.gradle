@@ -46,6 +46,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             firebaseAppDistribution {
                 artifactType = ["APK","AAB"]
+                artifactType = "APK"
                 releaseNotesFile = "/path/to/releasenotes.txt"
                 testers = "ahmad.abdelhamid35@gmail.com"
             }
