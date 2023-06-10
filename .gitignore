@@ -25,7 +25,7 @@ local.properties
 /.idea/inspectionProfiles/Project_Default.xml
 /.idea/detekt.xml
 
-/updload-keystore.jks
+/upload-keystore.jks
 /app/production/release
 /app/stage/release
 /keystore.properties
