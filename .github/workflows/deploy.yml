@@ -26,7 +26,23 @@ jobs:
       - name: Grant execution permission to gradlew
         run: chmod +x gradlew
 
-      - name: Build & deploy production-release
+      - name: Decode Keystore File
+        uses: timheuer/base64-to-file@v1
+        id: decode_keystore
+        with:
+          fileName: "upload-keystore.keystore"
+          encodedString: ${{ secrets.STORE_FILE_B64 }}
+
+      - name: Build & deploy Android release
         run: ./gradlew assembleRelease appDistributionUploadProductionRelease
         env:
+#          KEYSTORE_FILE: ${{ steps.upload-keystore.keystore.outputs.filePath }}
+          STORE_PASSWORD: ${{ secrets.STORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS}}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
           FIREBASE_TOKEN: ${{secrets.FIREBASE_TOKEN}}
+
+#      - name: Build & deploy production-release
+#        run: ./gradlew assembleRelease appDistributionUploadProductionRelease
+#        env:
+#          FIREBASE_TOKEN: ${{secrets.FIREBASE_TOKEN}}
