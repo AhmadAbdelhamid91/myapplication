@@ -14,7 +14,7 @@ plugins {
     id 'org.jlleitschuh.gradle.ktlint' version '11.4.0'
     id 'io.gitlab.arturbosch.detekt' version '1.23.0'
 }
-subprojects {
+allprojects {
     apply plugin: "org.jlleitschuh.gradle.ktlint"
     apply plugin: "io.gitlab.arturbosch.detekt"
     detekt {
@@ -23,15 +23,16 @@ subprojects {
         parallel = true
         buildUponDefaultConfig = false
         config = files("${project.rootDir}/config/detekt/detekt.yml")
-        basePath = rootProject.projectDir.absolutePath
+        basePath = rootProject.projectDir
         reports.xml.required.set(true)
+        reports.sarif.required.set(true)
         reports.txt.required.set(false)
-        reports.sarif.required.set(false)
     }
 
 }
 
 tasks.named("detekt").configure {
+
     reports {
         sarif {enabled  = false}
         xml {
