@@ -7,7 +7,12 @@ plugins {
     id 'io.gitlab.arturbosch.detekt'
 }
 
+def keystorePropertiesFile = rootProject.file("keystore.properties")
+def keystoreProperties = new Properties()
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
 android {
+
     namespace 'com.example.myapplication'
     compileSdk 33
 
@@ -23,12 +28,24 @@ android {
             useSupportLibrary true
         }
     }
-
+    signingConfigs {
+        release {
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile file(keystoreProperties['storeFile'])
+            storePassword keystoreProperties['storePassword']
+        }
+    }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
+            signingConfig signingConfigs.release
+            versionNameSuffix '- release'
+            applicationIdSuffix ".release"
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             firebaseAppDistribution {
+                artifactType = ["APK","AAB"]
                 artifactType = "APK"
                 releaseNotesFile = "/path/to/releasenotes.txt"
                 testers = "ahmad.abdelhamid35@gmail.com"
@@ -39,14 +56,20 @@ android {
     productFlavors {
         stage {
             dimension "env"
+            versionNameSuffix '- stage'
+            applicationIdSuffix ".stage"
             firebaseAppDistribution {
+                artifactType = ["APK","AAB"]
                 releaseNotes = "Release notes for staging"
                 testers = "ahmad.abdelhamid35@gmail.com"
             }
         }
         production {
             dimension "env"
+            versionNameSuffix '- production'
+            applicationIdSuffix ".production"
             firebaseAppDistribution {
+                artifactType = ["APK","AAB"]
                 releaseNotes = "Release notes for production"
                 testers = "ahmad.abdelhamid35@gmail.com"
             }
@@ -86,10 +109,10 @@ android {
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.8.0'
+    implementation 'androidx.core:core-ktx:1.10.1'
     implementation platform('org.jetbrains.kotlin:kotlin-bom:1.8.0')
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
-    implementation 'androidx.activity:activity-compose:1.5.1'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.1'
+    implementation 'androidx.activity:activity-compose:1.7.2'
     implementation platform('androidx.compose:compose-bom:2022.10.00')
     implementation 'androidx.compose.ui:ui'
     implementation 'androidx.compose.ui:ui-graphics'
