@@ -44,7 +44,7 @@ android {
             versionNameSuffix '- release'
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             firebaseAppDistribution {
-                artifactType = "AAB"
+                artifactType="AAB"
                 releaseNotesFile = "/path/to/releasenotes.txt"
                 testers = "ahmad.abdelhamid35@gmail.com"
             }
@@ -56,7 +56,6 @@ android {
             dimension "env"
             versionNameSuffix '- stage'
             firebaseAppDistribution {
-                artifactType = "AAB"
                 releaseNotes = "Release notes for staging"
                 testers = "ahmad.abdelhamid35@gmail.com"
             }
@@ -65,7 +64,6 @@ android {
             dimension "env"
             versionNameSuffix '- production'
             firebaseAppDistribution {
-                artifactType = "AAB"
                 releaseNotes = "Release notes for production"
                 testers = "ahmad.abdelhamid35@gmail.com"
             }
