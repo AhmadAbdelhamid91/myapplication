@@ -42,11 +42,9 @@ android {
             shrinkResources true
             signingConfig signingConfigs.release
             versionNameSuffix '- release'
-            applicationIdSuffix ".release"
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             firebaseAppDistribution {
-                artifactType = ["APK","AAB"]
-                artifactType = "APK"
+                artifactType = "AAB"
                 releaseNotesFile = "/path/to/releasenotes.txt"
                 testers = "ahmad.abdelhamid35@gmail.com"
             }
@@ -57,9 +55,8 @@ android {
         stage {
             dimension "env"
             versionNameSuffix '- stage'
-            applicationIdSuffix ".stage"
             firebaseAppDistribution {
-                artifactType = ["APK","AAB"]
+                artifactType = "AAB"
                 releaseNotes = "Release notes for staging"
                 testers = "ahmad.abdelhamid35@gmail.com"
             }
@@ -67,9 +64,8 @@ android {
         production {
             dimension "env"
             versionNameSuffix '- production'
-            applicationIdSuffix ".production"
             firebaseAppDistribution {
-                artifactType = ["APK","AAB"]
+                artifactType = "AAB"
                 releaseNotes = "Release notes for production"
                 testers = "ahmad.abdelhamid35@gmail.com"
             }
