@@ -1,8 +1,10 @@
+import io.gitlab.arturbosch.detekt.Detekt
+
 buildscript {
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.4.0'
         classpath 'com.google.gms:google-services:4.3.15'
         classpath 'com.google.firebase:firebase-appdistribution-gradle:4.0.0'
+        classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.23.0"
     }
 }// Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
@@ -10,7 +12,47 @@ plugins {
     id 'com.android.library' version '8.0.2' apply false
     id 'org.jetbrains.kotlin.android' version '1.7.20' apply false
     id 'org.jlleitschuh.gradle.ktlint' version '11.4.0'
+    id 'io.gitlab.arturbosch.detekt' version '1.23.0'
 }
-subprojects {
+allprojects {
     apply plugin: "org.jlleitschuh.gradle.ktlint"
+    apply plugin: "io.gitlab.arturbosch.detekt"
+    detekt {
+        toolVersion = "1.23.0"
+        debug = true
+        parallel = true
+        buildUponDefaultConfig = false
+        config = files("${project.rootDir}/config/detekt/detekt.yml")
+        basePath = rootProject.projectDir
+        reports.xml.required.set(true)
+        reports.sarif.required.set(true)
+        reports.txt.required.set(false)
+    }
+
+}
+
+tasks.named("detekt").configure {
+
+    reports {
+        sarif {enabled  = false}
+        xml {
+            enabled  true
+            required  = false
+            outputLocation.set(file("build/reports/detekt.xml"))
+        }
+        html {
+            enabled  false
+            required  = false
+            outputLocation.set(file("build/reports/detekt.html"))
+        }
+        md {
+            enabled  false
+            required  = false
+            outputLocation.set(file("build/reports/detekt.md"))
+        }
+
+    }
+}
+tasks.withType(Detekt).configureEach {
+    jvmTarget = JavaVersion.VERSION_17.toString()
 }

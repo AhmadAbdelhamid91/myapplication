@@ -20,6 +20,9 @@ jobs:
           distribution: 'temurin'
           cache: gradle
 
+      - name: Gradle Cache
+        uses: burrunan/gradle-cache-action@v1
+
       - name: Grant execution permission to gradlew
         run: chmod +x gradlew
 
