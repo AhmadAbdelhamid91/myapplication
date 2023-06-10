@@ -18,10 +18,10 @@ default_platform(:android)
 platform :android do
     desc "Lane for distributing app using Firebase App Distributions"
     lane :distribute do
-       gradle(task: "clean assembleRelease")
+#        gradle(task: "clean assembleRelease")
         build_android_app(
         task: "bundle",
-        flavor: "production",
+        flavor: "Production",
         build_type: "Release",
         )
 
