@@ -16,18 +16,9 @@ update_fastlane
 default_platform(:android)
 
 platform :android do
-  desc "Runs all the tests"
-  lane :run_unit_tests do
-    gradle(
-    task: "test",
-    gradle_path: 'gradlew')
-  end
-
-
-    desc "My awesome app"
+    desc "Lane for distributing app using Firebase App Distributions"
     lane :distribute do
-
-        increment_version()
+       gradle(task: "clean assembleRelease")
         build_android_app(
         task: "bundle",
         flavor: "production",
@@ -35,20 +26,11 @@ platform :android do
         )
 
         release = firebase_app_distribution(
-            app: "1:711931748930:android:ed8ff792d1642d4e4ec3db",
-            firebase_cli_token:"1//03uoNCqh3iZEECgYIARAAGAMSNwF-L9IrK5zv78zrLGqyiwPaAh4li0zA-DV7AxYyX63ZmcDElkL4A8kwI0PCWY6EieB6Eyx3cw0",
+            app: ENV['FIREBASE_APP_ID'],
+            firebase_cli_token: ENV['FIREBASE_TOKEN'],
             testers: "ahmad.abdelhamid35@gmail.com",
             release_notes: "Lots of amazing new features to test out!",
         )
 
     end
-
-    lane :increment_version do
-      latest_release = firebase_app_distribution_get_latest_release(
-        app: "1:711931748930:android:ed8ff792d1642d4e4ec3db",
-        firebase_cli_token:"1//03uoNCqh3iZEECgYIARAAGAMSNwF-L9IrK5zv78zrLGqyiwPaAh4li0zA-DV7AxYyX63ZmcDElkL4A8kwI0PCWY6EieB6Eyx3cw0",
-      )
-      increment_version_code({ version_code: latest_release[:buildVersion].to_i + 1 })
-    end
-
 end
