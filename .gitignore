@@ -23,3 +23,4 @@ local.properties
 /.idea/gradle.xml
 /.idea/misc.xml
 /.idea/inspectionProfiles/Project_Default.xml
+/.idea/detekt.xml

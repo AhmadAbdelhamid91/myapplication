@@ -1,9 +1,10 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-    id 'org.jlleitschuh.gradle.ktlint'
     id 'com.google.firebase.appdistribution'
     id 'com.google.gms.google-services'
+    id 'org.jlleitschuh.gradle.ktlint'
+    id 'io.gitlab.arturbosch.detekt'
 }
 
 android {
@@ -28,9 +29,9 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             firebaseAppDistribution {
-                artifactType="APK"
-                releaseNotesFile="/path/to/releasenotes.txt"
-                testers="ahmad.abdelhamid35@gmail.com"
+                artifactType = "APK"
+                releaseNotesFile = "/path/to/releasenotes.txt"
+                testers = "ahmad.abdelhamid35@gmail.com"
             }
         }
     }
@@ -39,25 +40,25 @@ android {
         stage {
             dimension "env"
             firebaseAppDistribution {
-                releaseNotes="Release notes for staging"
-                testers="ahmad.abdelhamid35@gmail.com"
+                releaseNotes = "Release notes for staging"
+                testers = "ahmad.abdelhamid35@gmail.com"
             }
         }
         production {
             dimension "env"
             firebaseAppDistribution {
-                releaseNotes="Release notes for production"
-                testers="ahmad.abdelhamid35@gmail.com"
+                releaseNotes = "Release notes for production"
+                testers = "ahmad.abdelhamid35@gmail.com"
             }
         }
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = JavaVersion.VERSION_17.toString()
     }
     buildFeatures {
         compose true
@@ -94,7 +95,8 @@ dependencies {
     implementation 'androidx.compose.ui:ui-graphics'
     implementation 'androidx.compose.ui:ui-tooling-preview'
     implementation 'androidx.compose.material3:material3'
-
+//
+    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.23.0")
 //firebase
     implementation platform('com.google.firebase:firebase-bom:32.1.0')
     implementation 'com.google.firebase:firebase-analytics-ktx'
@@ -123,3 +125,4 @@ ktlint {
     outputColorName = "RED"
     enableExperimentalRules = true
 }
+
