@@ -42,7 +42,7 @@ jobs:
           FIREBASE_TOKEN: ${{secrets.FIREBASE_TOKEN}}
 
       - name: Build & deploy Android release
-        run: ./gradlew bundleProductionRelease --artifactType="AAB" appDistributionUploadProductionRelease
+        run: ./gradlew bundleProductionRelease appDistributionUploadProductionRelease
         env:
           STORE_FILE_B64: ${{ secrets.STORE_FILE_B64 }}
           STORE_PASSWORD: ${{ secrets.STORE_PASSWORD }}
