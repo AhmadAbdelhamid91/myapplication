@@ -26,8 +26,8 @@ jobs:
           path: |
             ~/.gradle/caches/
             ~/.gradle/wrapper/
-            key: cache-gradle-${{ hashFiles('build.gradle') }}
-            restore-keys: cache-gradle-
+          key: cache-gradle-${{ hashFiles('build.gradle') }}
+          restore-keys: cache-gradle-
 
       - name: Grant execution permission to gradlew
         run: chmod +x gradlew
@@ -63,8 +63,8 @@ jobs:
           path: |
             ~/.gradle/caches/
             ~/.gradle/wrapper/
-            key: cache-gradle-${{ hashFiles('build.gradle') }}
-            restore-keys: cache-gradle-
+          key: cache-gradle-${{ hashFiles('build.gradle') }}
+          restore-keys: cache-gradle-
 
       - name: Grant execution permission to gradlew
         run: chmod +x gradlew
