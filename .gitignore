@@ -25,9 +25,9 @@ local.properties
 /.idea/inspectionProfiles/Project_Default.xml
 /.idea/detekt.xml
 
-/upload-keystore.jks
+/keystore.jks
 /app/production/release
 /app/stage/release
 /keystore.properties
-/upload_keystore_base64.txt
+/keystore_base64.txt
 
