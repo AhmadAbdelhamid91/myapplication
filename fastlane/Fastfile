@@ -23,4 +23,32 @@ platform :android do
     gradle_path: 'gradlew')
   end
 
+
+    desc "My awesome app"
+    lane :distribute do
+
+        increment_version()
+        build_android_app(
+        task: "bundle",
+        flavor: "production",
+        build_type: "Release",
+        )
+
+        release = firebase_app_distribution(
+            app: "1:711931748930:android:ed8ff792d1642d4e4ec3db",
+            firebase_cli_token:"1//03uoNCqh3iZEECgYIARAAGAMSNwF-L9IrK5zv78zrLGqyiwPaAh4li0zA-DV7AxYyX63ZmcDElkL4A8kwI0PCWY6EieB6Eyx3cw0",
+            testers: "ahmad.abdelhamid35@gmail.com",
+            release_notes: "Lots of amazing new features to test out!",
+        )
+
+    end
+
+    lane :increment_version do
+      latest_release = firebase_app_distribution_get_latest_release(
+        app: "1:711931748930:android:ed8ff792d1642d4e4ec3db",
+        firebase_cli_token:"1//03uoNCqh3iZEECgYIARAAGAMSNwF-L9IrK5zv78zrLGqyiwPaAh4li0zA-DV7AxYyX63ZmcDElkL4A8kwI0PCWY6EieB6Eyx3cw0",
+      )
+      increment_version_code({ version_code: latest_release[:buildVersion].to_i + 1 })
+    end
+
 end
