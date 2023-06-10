@@ -60,7 +60,7 @@ jobs:
           FIREBASE_TOKEN: ${{secrets.FIREBASE_TOKEN}}
 
       - name: Distribute app with 🔥 App Distribution 🚀
-        run: bundle exec fastlane distribute
+        run: bundle exec fastlane distribute_apk
         env:
           FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
           FIREBASE_TOKEN: ${{secrets.FIREBASE_TOKEN}}
