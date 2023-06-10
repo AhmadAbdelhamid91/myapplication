@@ -7,12 +7,10 @@ on:
 
 jobs:
 
-  lint:
-
+  ktlint:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout current repository in runner
+      - name: Checkout Repo in runner
         uses: actions/checkout@v3
 
       - name: Setup JDK 17
@@ -26,25 +24,29 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
+            ~/.gradle/caches/
+            ~/.gradle/wrapper/
+            key: cache-gradle-${{ hashFiles('build.gradle') }}
+            restore-keys: cache-gradle-
 
-      - name: Grant execution permission to gradlew
-        run: chmod +x gradlew
+      #      - name: Grant execution permission to gradlew
+      #        run: chmod +x gradlew
 
-      - name: check linting
+      - name: Run ktlint
         run: ./gradlew ktlintCheck --continue
 
-
-  tests:
-    needs: lint
+  detekt:
     runs-on: ubuntu-latest
-
     steps:
+      - name: Checkout Repo in runner
+        uses: actions/checkout@v3
+      - name: Run detekt
+        run: ./gradlew detekt --continue
 
+  test:
+    #    needs: [ analyze_code ]
+    runs-on: ubuntu-latest
+    steps:
       - name: Checkout current repository in runner
         uses: actions/checkout@v3
 
@@ -59,14 +61,13 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
+            ~/.gradle/caches/
+            ~/.gradle/wrapper/
+            key: cache-gradle-${{ hashFiles('build.gradle') }}
+            restore-keys: cache-gradle-
 
-      - name: Grant execution permission to gradlew
-        run: chmod +x gradlew
+      #      - name: Grant execution permission to gradlew
+      #        run: chmod +x gradlew
 
       - name: Unit Test
         run: ./gradlew test
