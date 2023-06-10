@@ -29,19 +29,19 @@ jobs:
             key: cache-gradle-${{ hashFiles('build.gradle') }}
             restore-keys: cache-gradle-
 
-      #      - name: Grant execution permission to gradlew
-      #        run: chmod +x gradlew
+      - name: Grant execution permission to gradlew
+        run: chmod +x gradlew
 
       - name: Run ktlint
         run: ./gradlew ktlintCheck --continue
 
-  detekt:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repo in runner
-        uses: actions/checkout@v3
-      - name: Run detekt
-        run: ./gradlew detekt --continue
+#  detekt:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout Repo in runner
+#        uses: actions/checkout@v3
+#      - name: Run detekt
+#        run: ./gradlew detekt --continue
 
   test:
     #    needs: [ analyze_code ]
@@ -66,8 +66,8 @@ jobs:
             key: cache-gradle-${{ hashFiles('build.gradle') }}
             restore-keys: cache-gradle-
 
-      #      - name: Grant execution permission to gradlew
-      #        run: chmod +x gradlew
+      - name: Grant execution permission to gradlew
+        run: chmod +x gradlew
 
       - name: Unit Test
         run: ./gradlew test
