@@ -18,7 +18,7 @@ default_platform(:android)
 platform :android do
     
     desc "distributing APK using Firebase App Distributions"
-    lane :distribute do
+    lane :distribute_apk do
         build_android_app(
         task: "assemble",
         flavor: "Production",
@@ -37,7 +37,7 @@ platform :android do
     
     
     desc "distributing AAB using Firebase App Distributions"
-    lane :distribute do
+    lane :distribute_aap do
 #        gradle(task: "clean assembleRelease")
         build_android_app(
         task: "bundle",
